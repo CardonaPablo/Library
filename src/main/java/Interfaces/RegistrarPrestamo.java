@@ -1,0 +1,215 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package Interfaces;
+import Library.Prestamo;
+import Pilas.Prestamos;
+import javax.swing.*;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import static java.lang.Integer.parseInt;
+
+/**
+ *
+ * @author cardonapablo
+ */
+public class RegistrarPrestamo extends javax.swing.JFrame {
+
+    private JLabel titleLabel = new JLabel();
+    private JPanel formPanel = new JPanel();
+    private JPanel actionsPanel = new JPanel();
+    
+    private Prestamos prestamos;
+    MenuPrincipal menu;
+    private JButton addButton = new JButton();
+    
+    Font titleFont = new Font("Helvetica", Font.PLAIN, 25);
+    Font labelFont = new Font("Helvetica", Font.BOLD, 25);
+    Font inputFont = new Font("Helvetica", Font.PLAIN, 24);
+    
+    private JTextField tituloInput = new JTextField();
+    private JTextArea notasInput = new JTextArea(10, 50);
+    private JTextField registroInput = new JTextField();
+    private JCheckBox retornadoInput = new JCheckBox();
+    
+    /**
+     * Creates new form RegistrarPrestamo
+     */
+    public RegistrarPrestamo(Prestamos prestamos, MenuPrincipal menu) {
+        
+        this.prestamos = prestamos;
+        this.menu = menu;
+                
+        setTitle("Préstamos");
+        setSize(700, 800);
+        setLocation(1500, 700);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        
+        titleLabel.setText("Registrar préstamos");
+        addButton.setText("Guardar");
+        
+        titleLabel.setSize(400, 50);
+        titleLabel.setFont(titleFont);
+        titleLabel.setLocation(150, 50);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setVisible(true);
+        this.add(titleLabel);
+        
+        this.drawForm();
+    }
+    
+    private void drawForm() {
+        
+        formPanel.setLocation(150, 100);
+        formPanel.setSize(400, 600);
+        formPanel.setVisible(true);
+        
+        formPanel.setLayout(new GridLayout(10, 1));
+        
+        tituloInput.setFont(inputFont);
+        notasInput.setFont(inputFont);
+        registroInput.setFont(inputFont);
+        retornadoInput.setFont(inputFont);
+        
+        JLabel formLabel = new JLabel("Título de libro");
+        formLabel.setFont(labelFont);
+        formPanel.add(formLabel);
+        formPanel.add(tituloInput);
+        
+        formLabel = new JLabel("Registro del alumno");
+        formLabel.setFont(labelFont);
+        formPanel.add(formLabel);
+        formPanel.add(registroInput);
+        
+        formLabel = new JLabel("Notas");
+        formLabel.setFont(labelFont);
+        formPanel.add(formLabel);
+        formPanel.add(notasInput);
+        
+        formLabel = new JLabel("Retornado");
+        formLabel.setFont(labelFont);
+        formPanel.add(formLabel);
+        formPanel.add(retornadoInput);
+        
+        formPanel.add(new JSeparator());
+        
+        this.add(formPanel);
+        this.drawActions();
+    }
+    
+    private void drawActions() {
+                
+        actionsPanel.setLayout(new BoxLayout(actionsPanel, BoxLayout.X_AXIS));
+        actionsPanel.setLocation(150, 600);
+        actionsPanel.setSize(400, 60);
+        
+        addButton.setFont(inputFont);
+        addButton.setSize(200, 50);
+        addButton.setVisible(true);
+        
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                submitFields();
+            }
+        });
+        actionsPanel.add(addButton);
+        
+        JButton cancelButton = new JButton("Cancelar");
+        cancelButton.setFont(inputFont);
+        cancelButton.setSize(200, 50);
+        cancelButton.setVisible(true);
+        
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                menu.setVisible(true);
+            }
+        });
+        actionsPanel.add(cancelButton);
+        
+        actionsPanel.setVisible(true);
+        this.add(actionsPanel);
+        
+    }
+    
+    private void submitFields() {
+        String titulo = tituloInput.getText();
+        String notas = notasInput.getText();
+        boolean retornado = retornadoInput.isSelected();
+        int registro = parseInt(registroInput.getText());
+        
+        Prestamo p = new Prestamo(retornado, titulo, notas, registro);
+        prestamos.push(p);
+        dispose();
+        this.menu.setVisible(true);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(RegistrarPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(RegistrarPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(RegistrarPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(RegistrarPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+}
